@@ -399,8 +399,36 @@ export default App;
 
 12-what is closure
 
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment).
 
-13-HOF
+import { IRootState } from "@app/typings";
+import * as React from "react";
+import { useSelector } from "react-redux";
+
+const PostUrlList: React.FunctionComponent = (props) => {
+  const { posts, uid } = useSelector((state: IRootState) => state.account)
+
+  const getPostUrl = (post: IPost) => {
+    const availabilityPrefix = post.private ? "myprivateposturl" : "mypublicposturl"
+    return `https://${availabilityPrefix}/post.id?uid=${uid}`
+  };
+
+  return (
+    <div>
+      {posts.map((post) => (
+          <a key={post.id} href={getPostUrl(post)}></a>
+      ))}
+    </div>
+  );
+};
+
+export default PostUrlList;
+
+
+13-HOC
+
+A higher-order component (HOC) is an advanced technique in React for reusing component logic. HOCs are not part of the React API, per se. They are a pattern that emerges from React's compositional nature. Concretely, a higher-order component is a function that takes a component and returns a new component
+
 
 
 14-different between var,let and const.
@@ -415,6 +443,8 @@ export default App;
 
 
 18-what is stateless and statefull component.
+
+In React, a stateful component is a component that holds some state. Stateless components, by contrast, have no state. Note that both types of components can use props. In the example, there are two React components. The Store component is stateful and the Week component is stateless.
 
 
 19-what is fragments.
